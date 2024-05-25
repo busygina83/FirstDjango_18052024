@@ -26,7 +26,7 @@ def home(request):
 def item_details(request,item_id):
     for item in items:
         if item['id']==item_id:
-            return render(request, "item.html", {"item": [f"id: {item['id']}", f"name: {item['name']}", f"quantity: {item['quantity']}"]})
+            return render(request, "item.html", {"item": item})
     return HttpResponseNotFound(
         f"""<p>Товар с id={item_id} не найден<br>
         <a href="/items">Назад к списку товаров</a></p>""")
