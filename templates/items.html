@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Item</title>
+</head>
+<body>
+    {% for item in items %}
+    <li>{{ item.name }}   <a href="/item/{{item.id}}">подробнее...</a></li>
+    {% endfor %}
+</body>
+</html>
