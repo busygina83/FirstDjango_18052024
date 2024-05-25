@@ -43,18 +43,16 @@ def item_list(request):
             </p>"""
     return HttpResponse(text)
 
-def item_detail(request, id):
-    text = ""
-    print (f"{id=}")
+def item_detail(request, item_id):
     for item in items:
-        if item['id']==id:
+        if item['id']==item_id:
             text = f"""<p>
                 id: <strong>{item['id']}</strong><br>
                 name: <strong>{item['name']}</strong><br>
                 quantity: <strong>{item['quantity']}</strong><br>
-                <a href="/items">назад к списку товаров</a><br>
+                <a href="/items">Назад к списку товаров</a><br>
                 </p>"""
             return HttpResponse(text)
-    if text == "":
-        text = f"<p>Товар с id={id} не найден</p>"
-        return HttpResponseNotFound(text)
+    return HttpResponseNotFound(
+        f"""<p>Товар с id={item_id} не найден<br>
+        <a href="/items">Назад к списку товаров</a></p>""")
