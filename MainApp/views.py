@@ -17,12 +17,15 @@ items = [
 ]
 
 def home(request):
-    fio="Бусыгина И.В."
-    text = f"""
-        <h1>"Изучаем django"</h1>
-        <strong>Автор</strong>: <i>{fio}</i>
-        """
-    return HttpResponse(text)
+    return render(request, "index.html")
+
+# def home(request):
+#     fio="Бусыгина И.В."
+#     text = f"""
+#         <h1>"Изучаем django"</h1>
+#         <strong>Автор</strong>: <i>{fio}</i>
+#         """
+#     return HttpResponse(text)
 
 def about(request):
     text = f"""<p>
