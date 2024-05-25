@@ -17,12 +17,6 @@ items = [
 ]
 
 def home(request):
-#     fio="Бусыгина И.В."
-#     text = f"""
-#         <h1>"Изучаем django"</h1>
-#         <strong>Автор</strong>: <i>{fio}</i>
-#         """
-#     return HttpResponse(text)
     context = {
         "name": "Бусыгина Инна Владимировна",
         "email": "busygina83@mail.ru"
@@ -30,35 +24,14 @@ def home(request):
     return render(request, "index.html", context)
 
 def about(request):
-    # text = f"""<p>
-    #     Имя: <strong>{author['familyname']}</strong><br>
-    #     Отчество: <strong>{author['name']}</strong><br>
-    #     Фамилия: <strong>{author['surname']}</strong><br>
-    #     телефон: <strong>{author['telephone']}</strong><br>
-    #     email: <strong>{author['email']}</strong><br>
-    #     </p>"""
-    # return HttpResponse(text)
     return render(request, "about.html", {"about": author})
 
 def item_list(request):
-    # for item in items:
-    #     text += f"""<p>
-    #         {item['id']}: {item['name']}
-    #         <a href="/item/{item['id']}"> подробнее...</a>
-    #         </p>"""
-    # return HttpResponse(text)
     return render(request, "items.html", {"items": items})
 
 def item_details(request, item_id):
     for item in items:
         if item['id']==item_id:
-            # text = f"""<p>
-            #     id: <strong>{item['id']}</strong><br>
-            #     name: <strong>{item['name']}</strong><br>
-            #     quantity: <strong>{item['quantity']}</strong><br>
-            #     <a href="/items">Назад к списку товаров</a><br>
-            #     </p>"""
-            # return HttpResponse(text)
             return render(request, "item.html", {"item": item})
     return HttpResponseNotFound(
         f"""<p>Товар с id={item_id} не найден<br>
