@@ -17,29 +17,28 @@ items = [
 ]
 
 def home(request):
-    context = {
-        "name": "Бусыгина Инна Владимировна",
-        "email": "busygina83@mail.ru"
-    }
-    return render(request, "index.html", context)
-
-# def home(request):
 #     fio="Бусыгина И.В."
 #     text = f"""
 #         <h1>"Изучаем django"</h1>
 #         <strong>Автор</strong>: <i>{fio}</i>
 #         """
 #     return HttpResponse(text)
+    context = {
+        "name": "Бусыгина Инна Владимировна",
+        "email": "busygina83@mail.ru"
+    }
+    return render(request, "index.html", context)
 
 def about(request):
-    text = f"""<p>
-        Имя: <strong>{author['familyname']}</strong><br>
-        Отчество: <strong>{author['name']}</strong><br>
-        Фамилия: <strong>{author['surname']}</strong><br>
-        телефон: <strong>{author['telephone']}</strong><br>
-        email: <strong>{author['email']}</strong><br>
-        </p>"""
-    return HttpResponse(text)
+    # text = f"""<p>
+    #     Имя: <strong>{author['familyname']}</strong><br>
+    #     Отчество: <strong>{author['name']}</strong><br>
+    #     Фамилия: <strong>{author['surname']}</strong><br>
+    #     телефон: <strong>{author['telephone']}</strong><br>
+    #     email: <strong>{author['email']}</strong><br>
+    #     </p>"""
+    # return HttpResponse(text)
+    return render(request, "about.html", {"about": author})
 
 def item_list(request):
     # for item in items:
