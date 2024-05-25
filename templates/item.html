@@ -5,11 +5,9 @@
     <title>Item</title>
 </head>
 <body>
-    <p>
-        id: <strong>{{ id }}</strong><br>
-        name: <strong>{{ name }}</strong><br>
-        quantity: <strong>{{ quantity }}</strong><br>
-        <a href="/items">Назад к списку товаров</a><br>
-    </p>
+    {% for item in item %}
+    <li>{{ item }}</li>
+    {% endfor %}
+    <a href="/items">Назад к списку товаров</a><br>
 </body>
 </html>
