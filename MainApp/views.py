@@ -33,6 +33,7 @@ def item_details(request, item_id):
     for item in items:
         if item['id']==item_id:
             return render(request, "item.html", {"item": item})
+        # item = next ((item for item in items if item['id'] == item_id), None)
     return HttpResponseNotFound(
         f"""<p>Товар с id={item_id} не найден<br>
         <a href="/items">Назад к списку товаров</a></p>""")
