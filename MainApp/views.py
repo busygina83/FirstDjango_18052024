@@ -17,7 +17,19 @@ items = [
 ]
 
 def home(request):
-    return render(request, "index.html")
+    context = {
+        "name": "Бусыгина Инна Владимировна",
+        "email": "busygina83@mail.ru"
+    }
+    return render(request, "index.html", context)
+
+def item_details(request,item_id):
+    for item in items:
+        if item['id']==item_id:
+            return render(request, "item.html", item)
+    return HttpResponseNotFound(
+        f"""<p>Товар с id={item_id} не найден<br>
+        <a href="/items">Назад к списку товаров</a></p>""")
 
 # def home(request):
 #     fio="Бусыгина И.В."
@@ -46,16 +58,16 @@ def item_list(request):
             </p>"""
     return HttpResponse(text)
 
-def item_detail(request, item_id):
-    for item in items:
-        if item['id']==item_id:
-            text = f"""<p>
-                id: <strong>{item['id']}</strong><br>
-                name: <strong>{item['name']}</strong><br>
-                quantity: <strong>{item['quantity']}</strong><br>
-                <a href="/items">Назад к списку товаров</a><br>
-                </p>"""
-            return HttpResponse(text)
-    return HttpResponseNotFound(
-        f"""<p>Товар с id={item_id} не найден<br>
-        <a href="/items">Назад к списку товаров</a></p>""")
+# def item_details(request, item_id):
+#     for item in items:
+#         if item['id']==item_id:
+#             text = f"""<p>
+#                 id: <strong>{item['id']}</strong><br>
+#                 name: <strong>{item['name']}</strong><br>
+#                 quantity: <strong>{item['quantity']}</strong><br>
+#                 <a href="/items">Назад к списку товаров</a><br>
+#                 </p>"""
+#             return HttpResponse(text)
+#     return HttpResponseNotFound(
+#         f"""<p>Товар с id={item_id} не найден<br>
+#         <a href="/items">Назад к списку товаров</a></p>""")
