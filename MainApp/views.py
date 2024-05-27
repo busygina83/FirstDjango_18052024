@@ -1,5 +1,5 @@
-from django.shortcuts import render # type: ignore
-from django.http import HttpResponse, HttpResponseNotFound # type: ignore
+from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseNotFound
 
 author = {
     "familyname": "Бусыгина",
@@ -16,6 +16,18 @@ items = [
     {"id": 8, "name": "Кепка" ,"quantity":124}
 ]
 
+# python manage.py shell_plus --ipython
+# item = Item(name="Кроссовки", brand="abibas", count=10)
+# item.save()
+# item = Item(name="Куртка кожаная", brand="Fin-Flare", count=2)
+# item.save()
+# item = Item(name="Напиток 1 литр", brand="Coca-cola", count=12)
+# item.save()
+# item = Item(name="Картофель фри", brand="MacDonalds", count=0)
+# item.save()
+# item = Item(name="Кепка", brand="Nike", count=124)
+# item.save()
+
 def home(request):
     context = {
         "name": "Бусыгина Инна Владимировна",
@@ -29,7 +41,7 @@ def about(request):
 def item_list(request):
     return render(request, "items.html", {"items": items})
 
-def item_details(request, item_id):
+def item_details(request, item_id: id):
     for item in items:
         if item['id']==item_id:
             return render(request, "item.html", {"item": item})

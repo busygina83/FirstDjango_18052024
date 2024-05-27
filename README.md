@@ -5,7 +5,13 @@
 2. `python3 -m venv django_venv`
 3. `source django_venv/bin/activate`
 4. `pip install -r requirements.txt`
-5. `python manage.py runserver`
+5. `python manage.py migrate`
+6. `python manage.py runserver`
+
+## Запуск `ipython` в контексте приложения Django
+```
+python manage.py shell_plus --ipython
+```
 
 ## Дополнительно
 1. Полезное дополнение для шаблонов `Django`
