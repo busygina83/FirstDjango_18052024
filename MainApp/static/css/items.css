@@ -1,0 +1,22 @@
+.wrap {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .cart {
+    position: relative;
+    width: 140px;
+    height: 200px;
+    perspective: 700px;
+    margin: 1%;
+  }
+  
+  .front,
+  .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 1s;
+    backface-visibility: hidden;
+  }
+  

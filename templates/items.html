@@ -1,16 +1,21 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/items.css' %}" type="text/css">
     <title>Items</title>
 </head>
 <body>
-    <header>/ <a href="/">Home</a> / <a href="/items">Items</a> / <a href="/about">About</a></header></br></br>
+    <header>/ <a href="/">Home</a> / <a href="/items">Items</a> / <a href="/about">About</a></header></br>
     <h2>Список товаров</h2>
-    <ol>
+    <div class="wrap">
         {% for item in items %}
-            <li><a href="/item/{{item.id}}">{{ item.name }}</a></li>
+        <div class="cart">
+            <div class="front"><a href="/item/{{item.id}}">{{ item.name }}</a></div>
+            <div class="back"><p>{{ item.note }}</p></div>
+        </div>
         {% endfor %}
-    </ol>
+      </div>
 </body>
 </html>

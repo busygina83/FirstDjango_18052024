@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
+from .models import Item
 
 author = {
     "familyname": "Бусыгина",
@@ -27,6 +28,23 @@ items = [
 # item.save()
 # item = Item(name="Кепка", brand="Nike", count=124)
 # item.save()
+# python3 manage.py makemigrations
+# # python3 manage.py migrate MainApp
+# item_db = Item.objects.get(id=1)
+# item_db.note="Очень крутые кроссы"
+# item_db.save()
+# item_db = Item.objects.get(id=2)
+# item_db.note="Кепка летняя белая"
+# item_db.save()
+# item_db = Item.objects.get(id=3)
+# item_db.note="Готовится в течении 5 минут"
+# item_db.save()
+# item_db = Item.objects.get(id=4)
+# item_db.note="Есть газированный и негазированный"
+# item_db.save()
+# item_db = Item.objects.get(id=5)
+# item_db.note="Смотрится стильно"
+# item_db.save()
 
 def home(request):
     context = {
@@ -39,13 +57,15 @@ def about(request):
     return render(request, "about.html", {"about": author})
 
 def item_list(request):
-    return render(request, "items.html", {"items": items})
+    items_db = Item.objects.all()
+    return render(request, "items.html", {"items": items_db})
 
 def item_details(request, item_id: id):
-    for item in items:
-        if item['id']==item_id:
-            return render(request, "item.html", {"item": item})
-        # item = next ((item for item in items if item['id'] == item_id), None)
-    return HttpResponseNotFound(
-        f"""<p>Товар с id={item_id} не найден<br>
-        <a href="/items">Назад к списку товаров</a></p>""")
+    # item = next ((item for item in items if item['id'] == item_id), None)
+    try:
+        item_db = Item.objects.get(id=item_id)
+        return render(request, "item.html", {"item": item_db})
+    except:
+        return HttpResponseNotFound(
+            f"""<p>Товар с id={item_id} не найден<br>
+            <a href="/items">Назад к списку товаров</a></p>""")
