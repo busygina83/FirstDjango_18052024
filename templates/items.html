@@ -1,13 +1,12 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
+{% extends 'base.html' %}
+{% block title %}Items{% endblock %}
+
+{% block style %}
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/items.css' %}" type="text/css">
-    <title>Items</title>
-</head>
-<body>
-    <header>/ <a href="/">Home</a> / <a href="/items">Items</a> / <a href="/about">About</a></header></br>
+{% endblock %}
+
+{% block content %}
     <h2>Список товаров</h2>
     <div class="items">
         {% for item in items %}
@@ -19,5 +18,4 @@
         </div>
         {% endfor %}
     </div>
-</body>
-</html>
+{% endblock %}

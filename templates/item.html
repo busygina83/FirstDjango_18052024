@@ -1,23 +1,10 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Item</title>
-</head>
-<body>
-    <header>/ <a href="/">Home</a> / <a href="/items">Items</a> / <a href="/about">About</a></header></br></br>
-    <div>
-        id: <strong>{{ item.id }}</strong><br>
-    </div>
-    <div>
-        Имя: <strong>{{ item.name }}</strong><br>
-    </div>
-    <div>
-        Бренд: <strong>{{ item.brand }}</strong><br>
-    </div>
-    <div>
-        Количество: <strong>{{ item.count | default:"товар отсутствует"}}</strong><br>
-    </div>
+{% extends 'base.html' %}
+{% block title %}Item{% endblock %}
+
+{% block content %}
+    <div>id: <strong>{{ item.id }}</strong><br></div>
+    <div>Имя: <strong>{{ item.name }}</strong><br></div>
+    <div>Бренд: <strong>{{ item.brand }}</strong><br></div>
+    <div>Количество: <strong>{{ item.count | default:"товар отсутствует"}}</strong><br></div>
     <a href="/items">Назад к списку товаров</a><br>
-</body>
-</html>
+{% endblock %}

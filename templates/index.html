@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Main page</title>
-</head>
-<body>
-    <header>/ <a href="/">Home</a> / <a href="/items">Items</a> / <a href="/about">About</a></header></br></br>
+{% extends 'base.html' %}
+{% block title %}Main page{% endblock %}
+
+{% block content %}
     <h1>Приветствую!</h1></br>
     Меня зовут: <i>{{ name }}</i></br>
     Мой email: <i>{{ email }}</i></br></br>
     Это главная страница сайта.</br>
     <i><a href="/items">К списку товаров</a><br></i>
-</body>
-</html>
+{% endblock %}
