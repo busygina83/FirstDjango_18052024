@@ -1,19 +1,28 @@
 {% extends 'base.html' %}
 {% block title %}Item{% endblock %}
 
+{% block style %}
+    {% load static %}
+    {{ block.super }}
+{% endblock %}
+
 {% block content %}
     <div>id: <strong>{{ item.id }}</strong><br></div>
     <div>Имя: <strong>{{ item.name }}</strong><br></div>
     <div>Бренд: <strong>{{ item.brand }}</strong><br></div>
     <div>Количество: <strong>{{ item.count | default:"товар отсутствует"}}</strong><br></div>
+    <div>Цвета:
     {% if item.colors.count %}
-        <div>Цвета:</div>
+        {% load static %}
+        <ul type="square">
         {% for color in item.colors.all %}
-            <div>
-                
-                <strong>{{ color.name }}</strong><br>
-            </div>
+            <li><div clacc='div_color' style="background-color: {{ color.name }}"></div>
+            &nbsp;&nbsp;{{ color.name }}</li>
         {% endfor %}
+        </ul>
+    {% else %}
+        <br>&nbsp;&nbsp;Данных по цветам нет
     {% endif %}
+    </div>
     <a href="{% url "item-list" %}">Назад к списку товаров</a><br>
 {% endblock %}
