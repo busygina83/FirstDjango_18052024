@@ -12,8 +12,8 @@
     <div class="wrap">
         {% for item in items %}
         <div class="cart">
-            <div class="front"><a href="/item/{{item.id}}">{{ item.name }}</a></div>
             <div class="back"><p>{{ item.note }}</p></div>
+            <div class="front"><a href="/item/{{item.id}}">{{ item.name }}</a></div>
         </div>
         {% endfor %}
       </div>

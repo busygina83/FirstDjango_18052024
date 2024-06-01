@@ -14,8 +14,8 @@
   .front,
   .back {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 100;
+    left: 100;
     transition: 1s;
     backface-visibility: hidden;
   }
