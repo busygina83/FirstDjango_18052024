@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -13,4 +13,18 @@
     Телефон: <strong>{{ about.telephone }}</strong><br>
     Email: <strong>{{ about.email }}</strong><br>
 </body>
-</html>
+</html> {% endcomment %}
+{% extends 'base.html' %}
+
+{% include 'header.html' %}
+
+{% block content %}
+    <h2>Автор</h2>
+    Имя: <strong>{{ about.familyname }}</strong><br>
+    Отчество: <strong>{{ about.name }}</strong><br>
+    Фамилия: <strong>{{ about.surname }}</strong><br>
+    Телефон: <strong>{{ about.telephone }}</strong><br>
+    Email: <strong>{{ about.email }}</strong><br>
+{% endblock %}
+
+{% include 'footer.html' %}
