@@ -2,9 +2,11 @@
 {% block title %}Main page{% endblock %}
 
 {% block content %}
+    {% load static %}
+    <img width="50px", stc="{% static "images/django.svg" %}" alt="My image">
     <h1>Приветствую!</h1></br>
     Меня зовут: <i>{{ name }}</i></br>
     Мой email: <i>{{ email }}</i></br></br>
     Это главная страница сайта.</br>
-    <i><a href="/items">К списку товаров</a><br></i>
+    <i><a href="{% url "item-list" %}">К списку товаров</a><br></i>
 {% endblock %}

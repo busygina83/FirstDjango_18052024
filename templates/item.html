@@ -6,5 +6,5 @@
     <div>Имя: <strong>{{ item.name }}</strong><br></div>
     <div>Бренд: <strong>{{ item.brand }}</strong><br></div>
     <div>Количество: <strong>{{ item.count | default:"товар отсутствует"}}</strong><br></div>
-    <a href="/items">Назад к списку товаров</a><br>
+    <a href="{% url "item-list" %}">Назад к списку товаров</a><br>
 {% endblock %}
