@@ -13,10 +13,9 @@
     <div>Количество: <strong>{{ item.count | default:"товар отсутствует"}}</strong><br></div>
     <div>Цвета:
     {% if item.colors.count %}
-        {% load static %}
-        <ul type="square">
+        <ul class='ul_no_mark'>
         {% for color in item.colors.all %}
-            <li><div clacc='div_color' style="background-color: {{ color.name }}"></div>
+            <li><div class='div_color' style="background-color: {{ color.name }}"></div>
             &nbsp;&nbsp;{{ color.name }}</li>
         {% endfor %}
         </ul>
