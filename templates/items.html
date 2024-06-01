@@ -11,7 +11,7 @@
     <div class="items">
         {% for item in items %}
         <div class="item">
-            <a href="/item/{{item.id}}">
+            <a href="{% url "item-detail" item.id %}">
                 <p class="item_name">{{ item.name }} ({{ item.brand }})</p>
                 <p>{{ item.note }}</p>
             </a>
