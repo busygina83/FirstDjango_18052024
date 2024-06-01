@@ -6,4 +6,4 @@ DS_Store
 .vscode/
 *.tmp
 *.db
-*.sqlite3
+# *.sqlite3
