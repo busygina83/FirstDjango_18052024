@@ -30,6 +30,7 @@ author = {
 # item = Item(name="Кепка", brand="Nike", count=124)
 # item.save()
 # python3 manage.py makemigrations
+# python3 manage.py migrate
 # # python3 manage.py migrate MainApp
 # item_db = Item.objects.get(id=1)
 # item_db.note="Очень крутые кроссы"
