@@ -9,13 +9,15 @@
 <body>
     <header>/ <a href="/">Home</a> / <a href="/items">Items</a> / <a href="/about">About</a></header></br>
     <h2>Список товаров</h2>
-    <div class="wrap">
+    <div class="items">
         {% for item in items %}
-        <div class="cart">
-            <div class="back"><p>{{ item.note }}</p></div>
-            <div class="front"><a href="/item/{{item.id}}">{{ item.name }}</a></div>
+        <div class="item">
+            <a href="/item/{{item.id}}">
+                <p class="item_name">{{ item.name }} ({{ item.brand }})</p>
+                <p>{{ item.note }}</p>
+            </a>
         </div>
         {% endfor %}
-      </div>
+    </div>
 </body>
 </html>

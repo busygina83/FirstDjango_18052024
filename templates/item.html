@@ -6,11 +6,18 @@
 </head>
 <body>
     <header>/ <a href="/">Home</a> / <a href="/items">Items</a> / <a href="/about">About</a></header></br></br>
-    id: <strong>{{ item.id }}</strong><br>
-    Имя: <strong>{{ item.name }}</strong><br>
-    Бренд: <strong>{{ item.brand }}</strong><br>
-    Количество: <strong>{% if item.count == 0 %}товар отсутствует
-        {% else %}{{ item.count }}{% endif %}</strong><br>
+    <div>
+        id: <strong>{{ item.id }}</strong><br>
+    </div>
+    <div>
+        Имя: <strong>{{ item.name }}</strong><br>
+    </div>
+    <div>
+        Бренд: <strong>{{ item.brand }}</strong><br>
+    </div>
+    <div>
+        Количество: <strong>{{ item.count | default:"товар отсутствует"}}</strong><br>
+    </div>
     <a href="/items">Назад к списку товаров</a><br>
 </body>
 </html>

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 from .models import Item
+from django.core.exceptions import ObjectDoesNotExist
 
 author = {
     "familyname": "Бусыгина",
@@ -65,7 +66,7 @@ def item_details(request, item_id: id):
     try:
         item_db = Item.objects.get(id=item_id)
         return render(request, "item.html", {"item": item_db})
-    except:
+    except ObjectDoesNotExist:
         return HttpResponseNotFound(
             f"""<p>Товар с id={item_id} не найден<br>
             <a href="/items">Назад к списку товаров</a></p>""")
