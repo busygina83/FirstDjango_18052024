@@ -9,13 +9,13 @@ author = {
     "telephone": "8-888-888-88-88",
     "email": "busygina83@mail.ru"}
 
-items = [
-    {"id": 1, "name": "Кроссовки abibas" ,"quantity":5},
-    {"id": 2, "name": "Куртка кожаная" ,"quantity":2},
-    {"id": 5, "name": "Coca-cola 1 литр" ,"quantity":12},
-    {"id": 7, "name": "Картофель фри" ,"quantity":0},
-    {"id": 8, "name": "Кепка" ,"quantity":124}
-]
+# items = [
+#     {"id": 1, "name": "Кроссовки abibas" ,"quantity":5},
+#     {"id": 2, "name": "Куртка кожаная" ,"quantity":2},
+#     {"id": 5, "name": "Coca-cola 1 литр" ,"quantity":12},
+#     {"id": 7, "name": "Картофель фри" ,"quantity":0},
+#     {"id": 8, "name": "Кепка" ,"quantity":124}
+# ]
 
 # python manage.py shell_plus --ipython
 # item = Item(name="Кроссовки", brand="abibas", count=10)
