@@ -70,4 +70,4 @@ def item_details(request, item_id: id):
     except ObjectDoesNotExist:
         return HttpResponseNotFound(
             f"""<p>Товар с id={item_id} не найден<br>
-            <a href="/items">Назад к списку товаров</a></p>""")
+            <a href="item-list">Назад к списку товаров</a></p>""")
