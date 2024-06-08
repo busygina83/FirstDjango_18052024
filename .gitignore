@@ -6,4 +6,4 @@
 */.vscode/
 */*.tmp
 */*.db
-*/*.sqlite3
+# */*.sqlite3
