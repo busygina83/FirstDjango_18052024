@@ -11,7 +11,7 @@
         </div>
         <div class="row">
             <div class="col">
-                {% if type == "view" %}
+                {% if type != "edit" %}
                 <fieldset disabled>
                     <div class="row disabled">
                         <div class="col col-8">
@@ -32,6 +32,7 @@
                         </div>
                     </div>
                 </fieldset>
+                <a href="{% url "snippets-list" %}" class="btn btn-secondary btn-block">К списку сниппетов</a>
                 {% else %}
                 <form action="" method="post">
                     {% csrf_token %}
@@ -40,13 +41,31 @@
                             Название: <input type="text" name="name" value="{{ snippet.name }}" class="form-control">
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            Язык программирования: <input type="text" name="lang" value="{{ snippet.lang }}" class="form-control">              
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="p-2 h-100" style="border:1px solid #ced4da; border-radius:5px;">
+                                Код: <textarea name="code">{{ snippet.code }}</textarea>
+                            </div>                
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="p-2 h-100" style="border:1px solid #ced4da; border-radius:5px;">
+                                Публичный: <input type="checkbox" name="public" {% if snippet.public %} checked {% endif %} />
+                                {% comment %} <input type="checkbox" value={{ snippet.public }} id="public" class="url_chek" onchange="get_u(this.id, this.checked? this.value : 0)"/> {% endcomment %}
+                            </div>                
+                        </div>
+                    </div>
                     <hr>
                     <div class="row">
                         <div class="col">
                             <div class="p-2 h-100" style="border:1px solid #ced4da; border-radius:5px;">
-                                <textarea name="code">
-                                    {{ snippet.code }}
-                                </textarea>                
+                                Дата модификации: {{snippet.creation_date | date:"Y-m-d H:i:s"}}
                             </div>                
                         </div>
                     </div>

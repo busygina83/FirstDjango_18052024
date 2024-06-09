@@ -1,15 +1,17 @@
-from django.forms import ModelForm, ValidationError, TextInput, Textarea
+# from tkinter import getboolean
+from django.forms import ModelForm, ValidationError, TextInput, Textarea, CheckboxInput
 from MainApp.models import Snippet
 
 class SnippetForm(ModelForm):
     class Meta:
         model = Snippet
         # Описываем поля, которые будем заполнять в форме
-        fields = ['name', 'lang', 'code']
+        fields = ['name', 'lang', 'code', 'public']
         labels = {"name": "", "lang": "", "code": ""}
         widgets = {
             "name": TextInput(attrs={"placeholder": "Название сниппета"}),
-            "code": Textarea(attrs={"placeholder": "Код сниппета"})
+            "code": Textarea(attrs={"placeholder": "Код сниппета"}),
+            "public": CheckboxInput(attrs={"placeholder": "Публичный"})
         }
 
     def clean_name(self):
