@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Base page{% endblock %}</title>
+    {% block style %}
+        {# Это общая css для всех страниц #}
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+        {# Но каждая страница может содержать доп.уникальные css #}
+    {% endblock %}
+</head>
+<body>
+<header>
+    {% block header %}
+        {% include 'header.html' %}
+    {% endblock %}
+</header></br>
+<main>
+    {#  Содержимое этого блока уникально на каждой странице #}
+    {% block content %}
+    {% endblock %}
+</main></br>
+<footer>
+    {% block footer %}
+        {% include 'footer.html' with familyname="Бусыгина" name="Инна"%}
+    {% endblock %}
+</footer>
+</body>
+</html>
