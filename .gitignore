@@ -6,4 +6,5 @@
 */.vscode/
 */*.tmp
 */*.db
+./django_venv
 # */*.sqlite3

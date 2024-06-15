@@ -3,8 +3,9 @@ from django.shortcuts import get_object_or_404, render, redirect
 from MainApp.models import Snippet, LANGS
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound
-from MainApp.forms import SnippetForm
+from MainApp.forms import SnippetForm, UserRegistrationForm
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
 
 def index_page(request):
@@ -12,10 +13,12 @@ def index_page(request):
     return render(request, 'pages/index.html', context)
 
 
+# @login_required(login_url="home")
 def snippets_list(request, user_id=None):
     snippets = Snippet.objects
     if user_id != None:
-        snippets = snippets.filter(user__lte=user_id)
+        # snippets = snippets.filter(user__lte=user_id)
+        snippets = snippets.filter(user=request.user)
         context = {
             'pagename': 'Просмотр сниппетов',
             "user_id": user_id,
@@ -28,7 +31,7 @@ def snippets_list(request, user_id=None):
             "user_id": 0,
             'snippets': snippets
         }
-    return render(request, 'pages/snippets_view.html', context)
+    return render(request, 'pages/snippets_list.html', context)
 
 
 def snippet_detail(request, snippet_id):
@@ -46,9 +49,35 @@ def snippet_detail(request, snippet_id):
             <a href="/snippets/list">Назад к списку сниппетов</a></p>""")
 
 
+@login_required(login_url="home")
+def snippet_add(request):
+    # Создаем пустую форму при запросе методом GET
+    if request.method == "GET":
+        form = SnippetForm()
+        context = {
+            'pagename': 'Добавление нового сниппета',
+            'form': form
+        }
+        return render(request, 'pages/snippet_add.html', context)
+    # Получаем данные из формы и на их основе создаем новый snippet в БД
+    if request.method == "POST":
+        # from pprint import pprint
+        # pprint(vars(request))
+        # pprint(request.POST)
+        form = SnippetForm(request.POST)
+        if form.is_valid():
+            snippet = form.save(commit=False)
+            if request.user.is_authenticated:
+                snippet.user=request.user
+            snippet.save()
+            return redirect("snippets-list") # GET /snippets/list
+        return render(request, "pages/snippet_add.html", {'form': form})
+
+
+@login_required(login_url="home")
 def snippet_edit(request, snippet_id: int):
     try:
-        snippet = Snippet.objects.get(id=snippet_id)
+        snippet = Snippet.objects.filter(user=request.user).get(id=snippet_id)
     except ObjectDoesNotExist:
         return Http404
     # Varian1
@@ -85,32 +114,9 @@ def snippet_edit(request, snippet_id: int):
         return redirect('snippets-list')
 
 
-def snippet_add(request):
-    # Создаем пустую форму при запросе методом GET
-    if request.method == "GET":
-        form = SnippetForm()
-        context = {
-            'pagename': 'Добавление нового сниппета',
-            'form': form
-        }
-        return render(request, 'pages/snippet_add.html', context)
-    # Получаем данные из формы и на их основе создаем новый snippet в БД
-    if request.method == "POST":
-        # from pprint import pprint
-        # pprint(vars(request))
-        # pprint(request.POST)
-        form = SnippetForm(request.POST)
-        if form.is_valid():
-            snippet = form.save(commit=False)
-            if request.user.is_authenticated:
-                snippet.user=request.user
-            snippet.save()
-            return redirect("snippets-list") # GET /snippets/list
-        return render(request, "pages/snippet_add.html", {'form': form})
-
-
+@login_required(login_url="home")
 def snippet_delete(request, snippet_id):
-    snippet = get_object_or_404(Snippet, id = snippet_id)
+    snippet = get_object_or_404(Snippet.objects.filter(user=request.user), id = snippet_id)
     if request.method in ("GET","POST"):
         snippet.delete()
     return redirect('snippets-list')
@@ -127,11 +133,31 @@ def login(request):
         if user is not None:
             auth.login(request, user)
         else:
-            # Return error message
-            pass
+            context = {
+                "pagename": "PythonBin",
+                "errors": ['wrong username or password']
+            }
+            return render(request, "page/index.html", context)
     return redirect('home')
 
 
 def logout(request):
     auth.logout(request)
     return redirect("home")
+
+
+def user_add(request):
+    context = {
+        'pagename': 'Регистрация нового пользователя'
+    }
+    if request.method == "GET":
+        form = UserRegistrationForm()
+        context['form'] = form
+        return render(request, 'pages/registration.html', context)
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+        context['form'] = form
+        return render(request, "pages/registration.html", context)

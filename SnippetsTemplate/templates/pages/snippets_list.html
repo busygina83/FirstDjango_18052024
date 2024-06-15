@@ -29,9 +29,10 @@
                         <th scope="col">ID</th>
                         <th scope="col">Название</th>
                         <th scope="col">Дата создания</th>
-                        {% if user_id > 0 %}
-                        <th scope="col">Редактировать</th>
-                        <th scope="col">Удалить</th>
+                        {% comment %} {% if user_id > 0 %} {% endcomment %}
+                        {% if request.user == snippet.user %}
+                            <th scope="col">Редактировать</th>
+                            <th scope="col">Удалить</th>
                         {% endif %}
                         <th scope="col">Доступность</th>
                         <th scope="col">Пользователь</th>
@@ -49,17 +50,18 @@
                             <td>
                                 {{ snippet.creation_date | date:"Y-m-d H:i:s" }}
                             </td>
-                            {% if user_id > 0 %}
-                            <td>
-                                {% csrf_token %}
-                                <a href="{% url "snippet-edit" snippet.id %}">
-                                    <i style="color:red;" class="fas fa-edit"></i></a>
-                            </td>
-                            <td>
-                                {% csrf_token %}
-                                <a href="{% url "snippet-delete" snippet.id %}">
-                                    <i style="color:red;" class="fa-solid fa-trash"></i></a>
-                            </td>
+                            {% comment %} {% if user_id > 0 %} {% endcomment %}
+                            {% if request.user == snippet.user %}
+                                <td>
+                                    {% csrf_token %}
+                                    <a href="{% url "snippet-edit" snippet.id %}">
+                                        <i style="color:red;" class="fas fa-edit"></i></a>
+                                </td>
+                                <td>
+                                    {% csrf_token %}
+                                    <a href="{% url "snippet-delete" snippet.id %}">
+                                        <i style="color:red;" class="fa-solid fa-trash"></i></a>
+                                </td>
                             {% endif %}
                             <td>
                                 {% if snippet.public %}
