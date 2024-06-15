@@ -37,11 +37,11 @@
                 <span style="color: white;">Welcome, {{ request.user.username }} </span> &nbsp;&nbsp; 
                 <br><a style="color: white;" href="{% url "logout" %}">logout</a>
             {% else %}
-                {% comment %} <form method="post" action="{% url "login" %}">{% csrf_token %}
+                <form method="post" action="{% url "login" %}">{% csrf_token %}
                     <input name="username"  type="text" placeholder="username">
                     <input name="password"  type="password" placeholder="password">
                     <button type="submit">login</button>
-                </form> {% endcomment %}
+                </form>
                 <div class="navbar-nav mr-right nav-item dropdown dropdown-menu-right">
                     <a class="btn btn-outline-primary my-2 my-sm-0 dropdown-toggle" href="#" id="navbarDropdown"
                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Авторизация

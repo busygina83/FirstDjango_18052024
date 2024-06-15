@@ -29,8 +29,8 @@
                         <th scope="col">ID</th>
                         <th scope="col">Название</th>
                         <th scope="col">Дата создания</th>
-                        {% comment %} {% if user_id > 0 %} {% endcomment %}
-                        {% if request.user == snippet.user %}
+                        {% if user_id > 0 %}
+                        {% comment %} {% if request.user == snippet.user %} {% endcomment %}
                             <th scope="col">Редактировать</th>
                             <th scope="col">Удалить</th>
                         {% endif %}
@@ -50,8 +50,8 @@
                             <td>
                                 {{ snippet.creation_date | date:"Y-m-d H:i:s" }}
                             </td>
-                            {% comment %} {% if user_id > 0 %} {% endcomment %}
-                            {% if request.user == snippet.user %}
+                            {% if user_id > 0 %}
+                            {% comment %} {% if request.user == snippet.user %} {% endcomment %}
                                 <td>
                                     {% csrf_token %}
                                     <a href="{% url "snippet-edit" snippet.id %}">

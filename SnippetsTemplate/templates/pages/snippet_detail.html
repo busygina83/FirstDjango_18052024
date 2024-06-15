@@ -27,11 +27,31 @@
                             <div class="p-2 h-100" style="border:1px solid #ced4da; border-radius:5px;">
                                 <p>
                                     {{ snippet.code }}
-                                </p>                
-                            </div>                
+                                </p>
+                            </div>
                         </div>
                     </div>
+                    <table border="1">
+                        <tr>
+                            <th>Автор</th>
+                            <th>Комментарий</th>
+                        </tr>
+                        {% for comment in snippet.comment.all %}
+                            <tr>
+                                <td>{{comment.author.username}}</td>
+                                <td>{{comment.text}}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </fieldset>
+                {% if request.user.is_authenticated %}
+                    <form action="{% url 'comment-add' %}" method="POST">
+                        {% csrf_token %}
+                        {{ comment_form }}
+                        <input name="snippet_id" type="hidden" value={{ snippet.id }}><br>
+                        <button type="submit">Добавить комментарий</button>
+                    </form>
+                {% endif %}
                 <a href="{% url "snippets-list" %}" class="btn btn-secondary btn-block">К списку сниппетов</a>
                 {% else %}
                 <form action="" method="post">
@@ -50,14 +70,14 @@
                         <div class="col">
                             <div class="p-2 h-100" style="border:1px solid #ced4da; border-radius:5px;">
                                 Код: <textarea name="code">{{ snippet.code }}</textarea>
-                            </div>                
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="p-2 h-100" style="border:1px solid #ced4da; border-radius:5px;">
                                 Публичный: <input type="checkbox" name="public" {% if snippet.public %} checked {% endif %} />
-                            </div>                
+                            </div>
                         </div>
                     </div>
                     <hr>
@@ -65,7 +85,7 @@
                         <div class="col">
                             <div class="p-2 h-100" style="border:1px solid #ced4da; border-radius:5px;">
                                 Дата модификации: {{snippet.creation_date | date:"Y-m-d H:i:s"}}
-                            </div>                
+                            </div>
                         </div>
                     </div>
                     <br>

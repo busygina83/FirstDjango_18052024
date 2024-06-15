@@ -2,8 +2,8 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from MainApp.models import Snippet, LANGS
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseNotFound
-from MainApp.forms import SnippetForm, UserRegistrationForm
+from django.http import HttpResponseNotFound, HttpResponseNotAllowed
+from MainApp.forms import SnippetForm, UserRegistrationForm, CommentForm
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 
@@ -35,18 +35,19 @@ def snippets_list(request, user_id=None):
 
 
 def snippet_detail(request, snippet_id):
+    context = {
+        'pagename': 'Детали сниппета',
+    }
     try:
         snippet = Snippet.objects.get(id=snippet_id)
-        context = {
-            'pagename': 'Детали сниппета',
-            'snippet': snippet
-        }
-        return render(request, 'pages/snippet_detail.html', context)
-
     except ObjectDoesNotExist:
         return HttpResponseNotFound(
             f"""<p>Сниппет с id={snippet_id} не найден<br>
             <a href="/snippets/list">Назад к списку сниппетов</a></p>""")
+    else:
+        context["snippet"] = snippet
+        context["type"] = "view"
+        return render(request, "pages/snippet_detail.html", context)
 
 
 @login_required(login_url="home")
@@ -59,18 +60,14 @@ def snippet_add(request):
             'form': form
         }
         return render(request, 'pages/snippet_add.html', context)
-    # Получаем данные из формы и на их основе создаем новый snippet в БД
     if request.method == "POST":
-        # from pprint import pprint
-        # pprint(vars(request))
-        # pprint(request.POST)
         form = SnippetForm(request.POST)
         if form.is_valid():
             snippet = form.save(commit=False)
             if request.user.is_authenticated:
                 snippet.user=request.user
             snippet.save()
-            return redirect("snippets-list") # GET /snippets/list
+            return redirect("snippets-list")
         return render(request, "pages/snippet_add.html", {'form': form})
 
 
@@ -80,14 +77,6 @@ def snippet_edit(request, snippet_id: int):
         snippet = Snippet.objects.filter(user=request.user).get(id=snippet_id)
     except ObjectDoesNotExist:
         return Http404
-    # Varian1
-    # ===== Получение данных сниппета с помощью SnippetForm
-    # if request.method == "GET":
-    #     form = SnippetForm(instance=snippet)
-    #     return render(request, "pages/snippet_add.html")
-
-    # Varian 2
-    # Хотим получить страницу с данными сниппета
     if request.method == "GET":
         form = SnippetForm()
         context = {
@@ -137,7 +126,7 @@ def login(request):
                 "pagename": "PythonBin",
                 "errors": ['wrong username or password']
             }
-            return render(request, "page/index.html", context)
+            return render(request, "pages/index.html", context)
     return redirect('home')
 
 
@@ -161,3 +150,22 @@ def user_add(request):
             return redirect("home")
         context['form'] = form
         return render(request, "pages/registration.html", context)
+
+
+@login_required
+def comment_add(request):
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        print(111)
+        # if comment_form.is_valid():
+        comment = form.save(commit=False)
+        snippet_id = request.POST.get("snippet_id")
+        snippet = Snippet.objects.get(id=snippet_id)
+        comment.author = request.user
+        comment.snippet = snippet
+        comment.save()
+        print(222)
+        return redirect("snippet-detail", snippet_id=snippet.id)
+        print(333)
+    print(444)
+    return HttpResponseNotAllowed(['POST'])

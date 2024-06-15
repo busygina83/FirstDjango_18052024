@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('text', models.TextField(max_length=1000)),
                 ('creation_date', models.DateTimeField(auto_now=True)),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('snippet', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='MainApp.snippet')),
+                ('snippet', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comment', to='MainApp.snippet')),
             ],
         ),
     ]
